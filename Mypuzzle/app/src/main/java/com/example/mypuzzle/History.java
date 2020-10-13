@@ -76,8 +76,8 @@ public class History extends AppCompatActivity implements View.OnClickListener {
             while(cousor.moveToNext())
             {
                 strresult +=cousor.getInt(0);
-                strresult +="    时间："+cousor.getString(1)+"秒     ";
-                strresult +="步数："+cousor.getString(2)+"步     ";
+                strresult +="  时间："+cousor.getString(1)+"秒  ";
+                strresult +="步数："+cousor.getString(2)+"步  ";
                 strresult +="日期："+cousor.getString(3);
                 strresult +="\n";
             }

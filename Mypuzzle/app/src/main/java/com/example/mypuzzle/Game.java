@@ -215,13 +215,14 @@ public class Game extends AppCompatActivity {
             blankImgid = imagebuttonId;
         }
 //      判断本次移动完成后，是否完成了拼图游戏
-        scount++;
+
         judgeGameOver();
 
     }
 
     /* 判断拼图是否成功*/
     private void judgeGameOver() {
+        scount++;
         boolean loop = true;   //定义标志位
         for (int i = 0; i < imageIndex.length; i++) {
             if (imageIndex[i]!=i) {
