@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#CBECA5"
     tools:context=".Game">
+
     <TextView
         android:id="@+id/pt_tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="时间 : 0"
+        android:text="时间 : 0    步数：0"
         android:layout_gravity="center"
         android:textSize="20sp"
         android:textColor="#FF0000"/>
@@ -102,6 +104,21 @@
             android:visibility="invisible"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/pt_line4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+    <Button
+        android:id="@+id/pt_btn_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="start"
+        android:layout_gravity="center"
+        android:text="开始拼图"
+        android:visibility="visible"
+        android:layout_marginTop="20dp"/>
     <Button
         android:id="@+id/pt_btn_restart"
         android:layout_width="wrap_content"
@@ -109,7 +126,9 @@
         android:onClick="restart"
         android:layout_gravity="center"
         android:text="重新开始"
+        android:visibility="invisible"
         android:layout_marginTop="20dp"/>
+</LinearLayout>
 
     <ImageView
         android:id="@+id/pt_iv"
@@ -117,5 +136,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@mipmap/yuantu1"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="10dp"/>
 </LinearLayout>

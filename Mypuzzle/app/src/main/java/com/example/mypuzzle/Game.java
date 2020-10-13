@@ -1,7 +1,10 @@
 package com.example.mypuzzle;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AlertDialog;
@@ -20,10 +23,22 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
+import com.example.mypuzzle.History;
+
+import static android.view.View.VISIBLE;
+
 public class Game extends AppCompatActivity {
 
+
+    private History.MyDbHElper myDbHElper;
+    private SQLiteDatabase db;
+    private ContentValues values;
+    private  static final String mTableName = "contacts";
+
+
+
     ImageButton ib00,ib01,ib02,ib10,ib11,ib12,ib20,ib21,ib22;
-    Button restartBtn;
+    Button restartBtn,startBtn;
     TextView timeTv;
     DecimalFormat df = new DecimalFormat("#.00");
 
@@ -64,12 +79,23 @@ public class Game extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        myDbHElper =new History.MyDbHElper(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         initView();
 //        打乱碎片的函数
         disruptRandom();
-        handler.sendEmptyMessageDelayed(1, 1000);
+        ib00.setClickable(false);
+        ib01.setClickable(false);
+        ib02.setClickable(false);
+        ib10.setClickable(false);
+        ib11.setClickable(false);
+        ib12.setClickable(false);
+        ib20.setClickable(false);
+        ib21.setClickable(false);
+        ib22.setClickable(false);
+
     }
 
     //  随机打乱数组当中元素，以不规则的形式进行图片显示
@@ -124,6 +150,7 @@ public class Game extends AppCompatActivity {
         ib22 = findViewById(R.id.pt_ib_02x02);
         timeTv = findViewById(R.id.pt_tv_time);
         restartBtn = findViewById(R.id.pt_btn_restart);
+        startBtn=findViewById(R.id.pt_btn_start);
     }
 
     public void onClick(View view) {
@@ -180,7 +207,7 @@ public class Game extends AppCompatActivity {
 //            将空白区域的按钮设置图片
             blankButton.setImageResource(image[imageIndex[site]]);
 //            移动之前是不可见的，移动之后，将控件设置为可见
-            blankButton.setVisibility(View.VISIBLE);
+            blankButton.setVisibility(VISIBLE);
 //            将改变角标的过程记录到存储图片位置数组当中
             swap(site,blankSwap);
 //            新的空白区域位置更新等于传入的点击按钮的位置
@@ -217,10 +244,17 @@ public class Game extends AppCompatActivity {
             ib21.setClickable(false);
             ib22.setClickable(false);
             ib22.setImageResource(image[8]);
-            ib22.setVisibility(View.VISIBLE);
+            ib22.setVisibility(VISIBLE);
 //            弹出提示用户成功的对话框
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             scount--;
+            db=myDbHElper.getWritableDatabase();
+            values = new ContentValues();
+            values.put("uname",String.valueOf(time/100));
+            values.put("stepcount",String.valueOf(scount));
+            values.put("gamedate",String.valueOf(20201003));
+
+            db.insert(mTableName,null,values);
             builder.setMessage("恭喜，拼图成功！您用的时间为"+df.format(time/100)+"秒"+"步数为："+scount+"步")
                     .setPositiveButton("确认",null);
             AlertDialog dialog = builder.create();
@@ -238,12 +272,34 @@ public class Game extends AppCompatActivity {
 //        将时间重新归0，并且重新开始计时
         time = 0;
         scount=0;
-        timeTv.setText("时间 : "+time+" 秒");
-        handler.sendEmptyMessageDelayed(1,1000);
+        timeTv.setText("时间 : "+time+" 秒"+"   步数"+scount+"步");
+        startBtn.setVisibility(View.VISIBLE);
+        restartBtn.setVisibility(View.INVISIBLE);
     }
 
     private void restore() {
         //      拼图游戏重新开始，允许完成移动碎片按钮
+        ib00.setClickable(false);
+        ib01.setClickable(false);
+        ib02.setClickable(false);
+        ib10.setClickable(false);
+        ib11.setClickable(false);
+        ib12.setClickable(false);
+        ib20.setClickable(false);
+        ib21.setClickable(false);
+        ib22.setClickable(false);
+//        还原被点击的图片按钮变成初始化的模样
+        ImageButton clickBtn = findViewById(blankImgid);
+        clickBtn.setVisibility(VISIBLE);
+//        默认隐藏第九章图片
+        ImageButton blankBtn = findViewById(R.id.pt_ib_02x02);
+        blankBtn.setVisibility(View.INVISIBLE);
+        blankImgid = R.id.pt_ib_02x02;   //初始化空白区域的按钮id
+        blankSwap = imgCount - 1;
+    }
+
+    public void start(View view) {
+        handler.sendEmptyMessageDelayed(1, 1000);
         ib00.setClickable(true);
         ib01.setClickable(true);
         ib02.setClickable(true);
@@ -253,13 +309,7 @@ public class Game extends AppCompatActivity {
         ib20.setClickable(true);
         ib21.setClickable(true);
         ib22.setClickable(true);
-//        还原被点击的图片按钮变成初始化的模样
-        ImageButton clickBtn = findViewById(blankImgid);
-        clickBtn.setVisibility(View.VISIBLE);
-//        默认隐藏第九章图片
-        ImageButton blankBtn = findViewById(R.id.pt_ib_02x02);
-        blankBtn.setVisibility(View.INVISIBLE);
-        blankImgid = R.id.pt_ib_02x02;   //初始化空白区域的按钮id
-        blankSwap = imgCount - 1;
+        startBtn.setVisibility(View.INVISIBLE);
+        restartBtn.setVisibility(VISIBLE);
     }
 }
