@@ -1,48 +1,48 @@
+
 package com.example.mypuzzle;
 
 
-import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
-import android.view.View;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+        import android.content.ContentValues;
+        import android.database.sqlite.SQLiteDatabase;
+        import android.os.Bundle;
+        import android.view.View;
+        import androidx.appcompat.app.AlertDialog;
+        import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.view.View;
+        import android.annotation.SuppressLint;
+        import android.os.Bundle;
+        import android.view.View;
 
 
-import android.os.Handler;
-import android.os.Message;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
+        import android.os.Handler;
+        import android.os.Message;
+        import android.widget.Button;
+        import android.widget.ImageButton;
+        import android.widget.TextView;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+        import java.text.DecimalFormat;
+        import java.text.SimpleDateFormat;
+        import java.util.Date;
 
-import com.example.mypuzzle.History;
+        import com.example.mypuzzle.History;
 
-import static android.view.View.VISIBLE;
+        import static android.view.View.VISIBLE;
 
-public class Game extends AppCompatActivity {
+public class Gameai extends AppCompatActivity {
 
 
     private History.MyDbHElper myDbHElper;
     private SQLiteDatabase db;
     private ContentValues values;
     private  static final String mTableName = "contacts";
-    int flag1=0;//1表示已经开始游戏
+
 
 
     ImageButton ib00,ib01,ib02,ib10,ib11,ib12,ib20,ib21,ib22;
     Button restartBtn,startBtn;
     TextView timeTv;
-    TextView stepTv;
     DecimalFormat df = new DecimalFormat("#.00");
 
     //    每行的图片个数
@@ -71,10 +71,11 @@ public class Game extends AppCompatActivity {
         public void handleMessage(Message msg) {
             if (msg.what==1) {
                 time++;
-                timeTv.setText("时间: "+df.format((double)time/100)+" 秒");
-                stepTv.setText("步数: "+scount+"步");
+
+                timeTv.setText("时间 : "+df.format(time/100)+" 秒"+"   步数:"+scount+"步");
                 handler.sendEmptyMessageDelayed(1,10);
             }
+
         }
     };
 
@@ -152,15 +153,10 @@ public class Game extends AppCompatActivity {
         ib22 = findViewById(R.id.pt_ib_02x02);
         timeTv = findViewById(R.id.pt_tv_time);
         restartBtn = findViewById(R.id.pt_btn_restart);
-       stepTv=findViewById(R.id.pt_tv_step);
+        //startBtn=findViewById(R.id.pt_btn_start);
     }
 
     public void onClick(View view) {
-        if(flag1==0)
-        {
-            start();
-            flag1=1;
-        }
         int id = view.getId();
 //        九个按钮执行的点击事件的逻辑应该是相同的，如果有空格在周围，可以改变图片显示的位置，否则点击事件不响应
         switch (id) {
@@ -285,9 +281,9 @@ public class Game extends AppCompatActivity {
 //        将时间重新归0，并且重新开始计时
         time = 0;
         scount=0;
-        flag1=0;
-        timeTv.setText("时间: "+time+" 秒");
-        stepTv.setText("步数："+scount+"步");
+        timeTv.setText("时间 : "+time+" 秒"+"   步数"+scount+"步");
+        startBtn.setVisibility(View.VISIBLE);
+        restartBtn.setVisibility(View.INVISIBLE);
     }
 
     private void restore() {
@@ -311,7 +307,7 @@ public class Game extends AppCompatActivity {
         blankSwap = imgCount - 1;
     }
 
-    public void start() {
+    public void start(View view) {
         handler.sendEmptyMessageDelayed(1, 1000);
         ib00.setClickable(true);
         ib01.setClickable(true);
@@ -322,5 +318,7 @@ public class Game extends AppCompatActivity {
         ib20.setClickable(true);
         ib21.setClickable(true);
         ib22.setClickable(true);
+        startBtn.setVisibility(View.INVISIBLE);
+        restartBtn.setVisibility(VISIBLE);
     }
 }

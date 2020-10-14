@@ -16,16 +16,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class History extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tv_contacts;
-    private TextView tv_title;
+    private TextView tv_tittle;
+    public RecyclerView recyclerView;
 
     private MyDbHElper myDbHElper;
     private SQLiteDatabase db;
 
     private ContentValues values;
-    private  static final String mTableName = "contacts";
+    private static final String mTableName = "contacts";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +47,9 @@ public class History extends AppCompatActivity implements View.OnClickListener {
 
     private void initView() {
 
-        tv_contacts=findViewById(R.id.tv_contacts);
+        tv_tittle = findViewById(R.id.tv_tittle);
 
-        myDbHElper =new MyDbHElper(this);
+        myDbHElper = new MyDbHElper(this);
 
 
     }
@@ -48,44 +59,54 @@ public class History extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void shoWMsg(String msg) {
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    private void addData(String uname,String stepcount,String gamedate)
-    {
-        db=myDbHElper.getWritableDatabase();
+    private void addData(String uname, String stepcount, String gamedate) {
+        db = myDbHElper.getWritableDatabase();
         values = new ContentValues();
-        values.put("uname",uname);
-        values.put("stepcount",stepcount);
-        values.put("gamedate",gamedate);
+        values.put("uname", uname);
+        values.put("stepcount", stepcount);
+        values.put("gamedate", gamedate);
 
-        db.insert(mTableName,null,values);
+        db.insert(mTableName, null, values);
         shoWMsg("成功添加");
         //queryData();
     }
-    private void queryData()
-    {
+
+    private void queryData() {
         db = myDbHElper.getReadableDatabase();
-        Cursor cousor =db.query(mTableName,null,null,null,null,null,null);
-        if(cousor.getCount()==0)
-        {
-            tv_title.setText("还没开始玩哦，还没有记录");
-        }
-        else {
-            String strresult="";
-            while(cousor.moveToNext())
-            {
-                strresult +=cousor.getInt(0);
-                strresult +="  时间："+cousor.getString(1)+"秒  ";
-                strresult +="步数："+cousor.getString(2)+"步  ";
-                strresult +="日期："+cousor.getString(3);
-                strresult +="\n";
+        recyclerView = findViewById(R.id.recyclerView);
+
+        List<Gamedatas> personList = new ArrayList<>();
+        Cursor cousor = db.query(mTableName, null, null, null, null, null, null);
+        if (cousor.getCount() != 0) {
+            String strresult = "";
+            int temp;
+            while (cousor.moveToNext()) {
+                temp= cousor.getInt(0);
+                String gnum=String.valueOf(temp);
+                String gtime = "时间："+ cousor.getString(1)+"秒";
+                String gstep = "步数："+cousor.getString(2)+"步";
+                String gdate = "日期："+cousor.getString(3);
+                Gamedatas gametemp = new Gamedatas(gnum, gtime, gstep,gdate);
+                personList.add(gametemp);
             }
-            tv_contacts.setText(strresult);
+           // tv_contacts.setText(strresult);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
 
+            MyAdapter myAdapter = new MyAdapter(personList);
 
+            recyclerView.setAdapter(myAdapter);
+
+        }
+        else
+        {
+            tv_tittle.setText("还未开始游戏，没有记录！");
         }
     }
+
     static class MyDbHElper extends SQLiteOpenHelper {
 
         public MyDbHElper(@Nullable Context context) {
@@ -94,7 +115,7 @@ public class History extends AppCompatActivity implements View.OnClickListener {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("create table "+mTableName+"(_id integer primary key autoincrement,"+"uname varchar(50) unique,stepcount varchar(10),gamedate varchar(10))");
+            db.execSQL("create table " + mTableName + "(_id integer primary key autoincrement," + "uname varchar(50) unique,stepcount varchar(50),gamedate varchar(50))");
 
         }
 
@@ -103,4 +124,5 @@ public class History extends AppCompatActivity implements View.OnClickListener {
 
         }
     }
+
 }
