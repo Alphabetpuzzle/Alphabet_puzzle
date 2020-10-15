@@ -35,13 +35,10 @@ import static android.view.View.VISIBLE;
 public class Gameai extends AppCompatActivity {
 
 
-        private History.MyDbHElper myDbHElper;
-        private SQLiteDatabase db;
-        private ContentValues values;
-        private  static final String mTableName = "contacts";
-        int flag1=0;//1表示已经开始游戏
-        int[] puzzle=new int[]{1,2,3,4,5,6,7,8,9};
-
+        int now9=0;
+        int[] pbegin=new int[]{7,4,6,3,5,2,1,8,0};
+        int[] anslist=new int[1000];
+        int runflag=0;//是否跑过eightpuggle
         ImageButton ib00,ib01,ib02,ib10,ib11,ib12,ib20,ib21,ib22;
         Button restartBtn,startBtn;
         TextView timeTv;
@@ -85,23 +82,12 @@ public class Gameai extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
 
-                myDbHElper =new History.MyDbHElper(this);
+
 
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_gameai);
                 initView();
 //        打乱碎片的函数
-                new Thread() {
-                        @Override
-                        public void run() {
-                                super.run();
-                                try {
-                                        Thread.sleep(5000);//休眠5秒让用户看原图
-                                } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                }
-                        }
-                }.start();
                 disruptRandom();
 
 
@@ -109,31 +95,10 @@ public class Gameai extends AppCompatActivity {
 
         //  随机打乱数组当中元素，以不规则的形式进行图片显示
         private void disruptRandom() {
-                for(int i = 0;i <9;i++) {
-                        puzzle[i] = i+1;
-                }
                 for (int i = 0; i < imageIndex.length; i++) {
-                        imageIndex[i] = i;
+                        imageIndex[i] = pbegin[i];
                 }
-//        规定20次，随机选择两个角标对应的值进行交换
-                int rand1,rand2;
-                for (int j = 0; j < 20; j++) {
-//            随机生成第一个角标   生成0-8之间的随机数
-                        rand1 = (int)(Math.random()*(imageIndex.length-1));
-//            第二次随机生成的角标，不能和第一次随机生成的角标相同，如果相同，就不方便交换了
-                        do {
-                                rand2 = (int)(Math.random()*(imageIndex.length-1));
-                                if (rand1!=rand2) {
-                                        break;
-                                }
-                        }while (true);
-//            交换两个角标上对应的值
-                        int tempint=puzzle[rand1];
-                        puzzle[rand1]=puzzle[rand2];
-                        puzzle[rand2]=tempint;
-                        swap(rand1,rand2);
-                }
-//        随机排列到指定的控件上
+//        排列到指定的控件上
                 ib00.setImageResource(image[imageIndex[0]]);
                 ib01.setImageResource(image[imageIndex[1]]);
                 ib02.setImageResource(image[imageIndex[2]]);
@@ -143,18 +108,18 @@ public class Gameai extends AppCompatActivity {
                 ib20.setImageResource(image[imageIndex[6]]);
                 ib21.setImageResource(image[imageIndex[7]]);
                 ib22.setImageResource(image[imageIndex[8]]);
-                String show="";
-                for(int i=0;i<9;i++)
-                {
-                        show+=String.valueOf(puzzle[i]);
-                }
-                tv_show.setText(show);
+
+
         }
         //  交换数组指定角标上的数据
         private void swap(int rand1, int rand2) {
                 int temp = imageIndex[rand1];
                 imageIndex[rand1] = imageIndex[rand2];
                 imageIndex[rand2] = temp;
+                if(rand1!=rand2)
+                scount++;
+                tv_show.setText(rand1);
+                judgeGameOver();
         }
 
         /* 初始化控件*/
@@ -171,27 +136,74 @@ public class Gameai extends AppCompatActivity {
                 timeTv = findViewById(R.id.pt_tv_time);
                 restartBtn = findViewById(R.id.pt_btn_restart);
                 stepTv=findViewById(R.id.pt_tv_step);
-                tv_show = findViewById(R.id.tv_show);
-
+                tv_show=findViewById(R.id.tv_show);
         }
 
+        /* 判断拼图是否成功*/
+        private void judgeGameOver() {
 
-
-
+                boolean loop = true;   //定义标志位
+                for (int i = 0; i < imageIndex.length; i++) {
+                        if (imageIndex[i]!=i) {
+                                loop = false;
+                                break;
+                        }
+                }
+                if (loop) {
+//            拼图成功了
+//            停止计时
+                        handler.removeMessages(1);
+//            拼图成功后，禁止玩家继续移动按钮
+                        ib22.setImageResource(image[8]);
+                        ib22.setVisibility(VISIBLE);
+//            弹出提示用户成功的对话框
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        scount--;
+                        builder.setMessage("AI拼图成功！时间为:"+df.format(time/10)+"秒"+"步数为:"+scount+"步")
+                                .setPositiveButton("确认",null);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                }
+        }
 
         /* 重新开始按钮的点击事件*/
         public void restart(View view) {
 //        将状态还原
-                restore();
+
 //       将拼图重新打乱
-                disruptRandom();
-                handler.removeMessages(1);
-//        将时间重新归0，并且重新开始计时
                 time = 0;
-                scount=0;
-                flag1=0;
-                timeTv.setText("时间:"+time+"秒");
+               scount=0;
+                disruptRandom();restore();
+
+//        将时间重新归0，并且重新开始计时
+
+                timeTv.setText("时间:"+time+" 秒");
                 stepTv.setText("步数:"+scount+"步");
+                start();
+                if(runflag==0)
+                {
+                        eightpuzzless();
+                        runflag=1;
+                }
+               /* String ett="";
+                for(int k=18;k<27;k++)
+                {
+                        ett+=anslist.get(k);
+                }
+                tv_show.setText(ett);*/
+                for(int k=1;k<anslist[0]+1;k+=9)
+                {
+                     for(int add=0;add<9;add++)
+                     {
+                             if(anslist[(add+k)]==0)
+                             {
+                                     swap(add,now9);
+                                     now9=add;
+                                     break;
+                             }
+                     }
+                }
+
         }
 
         private void restore() {
@@ -206,74 +218,76 @@ public class Gameai extends AppCompatActivity {
                 blankSwap = imgCount - 1;
         }
 
+        public void start() {
+                handler.sendEmptyMessageDelayed(1, 100);
+                now9=8;
+        }
 
 
         @SuppressWarnings("unchecked")
-        public static void main(String args[]){
+        public  void eightpuzzless() {
                 //定义open表
                 ArrayList<EightPuzzle> open = new ArrayList<EightPuzzle>();
                 ArrayList<EightPuzzle> close = new ArrayList<EightPuzzle>();
                 EightPuzzle start = new EightPuzzle();
                 EightPuzzle target = new EightPuzzle();
-
-                int stnum[] = {7,4,6,3,5,2,1,8,0};
-                int tanum[] = {1,2,3,4,5,6,7,8,0};
+                int stnum[] = {7, 4, 6, 3, 5, 2, 1, 8, 0};
+                int tanum[] = {1, 2, 3, 4, 5, 6, 7, 8, 0};
+                for (int k = 0; k < 9; k++) {
+                        stnum[k] = pbegin[k];
+                }
 
                 start.setNum(stnum);
                 target.setNum(tanum);
-                if(start.isSolvable(target)){
+                if (start.isSolvable(target)) {
                         //初始化初始状态
                         start.init(target);
                         open.add(start);
-                        while(open.isEmpty() == false){
+                        while (open.isEmpty() == false) {
                                 Collections.sort(open);            //按照evaluation的值排序
                                 EightPuzzle best = open.get(0);    //从open表中取出最小估值的状态并移出open表
                                 open.remove(0);
                                 close.add(best);
 
-                                if(best.isTarget(target)){
+                                if (best.isTarget(target)) {
                                         //输出
-                                        ArrayList list=new ArrayList();
-                                       list= best.printRoute();
-
-                                        for (int i = 0; i < list.size(); i++) {
-                                                System.out.println(list.get(i));
-                                        }
-
+                                        anslist = best.printRoute();
+                                        return ;
                                 }
 
                                 int move;
                                 //由best状态进行扩展并加入到open表中
                                 //0的位置上移之后状态不在close和open中设定best为其父状态，并初始化f(n)估值函数
-                                if(best.isMoveUp()){//可以上移的话
+                                if (best.isMoveUp()) {//可以上移的话
                                         move = 0;//上移标记
                                         EightPuzzle up = best.moveUp(move);//best的一个子状态
                                         up.operation(open, close, best, target);
                                 }
                                 //0的位置下移之后状态不在close和open中设定best为其父状态，并初始化f(n)估值函数
-                                if(best.isMoveDown()){
+                                if (best.isMoveDown()) {
                                         move = 1;
                                         EightPuzzle down = best.moveUp(move);
                                         down.operation(open, close, best, target);
                                 }
                                 //0的位置左移之后状态不在close和open中设定best为其父状态，并初始化f(n)估值函数
-                                if(best.isMoveLeft()){
+                                if (best.isMoveLeft()) {
                                         move = 2;
                                         EightPuzzle left = best.moveUp(move);
                                         left.operation(open, close, best, target);
                                 }
                                 //0的位置右移之后状态不在close和open中设定best为其父状态，并初始化f(n)估值函数
-                                if(best.isMoveRight()){
+                                if (best.isMoveRight()) {
                                         move = 3;
                                         EightPuzzle right = best.moveUp(move);
                                         right.operation(open, close, best, target);
                                 }
 
                         }
-                }else
-                {
+                } else {
                         //"目标状态不可达";
                 }
 
+                return ;
         }
+
 }

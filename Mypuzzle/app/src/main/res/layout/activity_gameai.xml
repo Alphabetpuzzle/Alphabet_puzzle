@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="restart"
-            android:text="重新演示"
+            android:text="演示"
             android:visibility="visible" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 

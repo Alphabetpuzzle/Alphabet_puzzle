@@ -206,37 +206,29 @@ public class EightPuzzle implements Comparable{
     /**
      * 按照3*3格式输出
      */
-    public void print(){
-        for(int i=0;i<9;i++){
-            if(i%3 == 2){
-                System.out.println(this.num[i]);
-            }else{
-                System.out.print(this.num[i]+"  ");
-            }
-        }
-    }
     /**
      * 将最终答案路径保存下来并输出
      */
-    public ArrayList printRoute(){
+    public int[] printRoute(){
+        int[] list=new int[1000];
         EightPuzzle temp = null;
-        int count = 0;
         temp = this;
         while(temp!=null){
             answer.add(temp);
             temp = temp.getParent();
-            count++;
         }
-        System.out.println("最小移动步数："+(count-1));
-        ArrayList list=new ArrayList();
+        list[0]=answer.size();
+        int k=1;
         for(int i=answer.size()-1 ; i>=0 ; i--){
-            int arr[] = new int[9];
             for(int j=0;j<9;j++)
             {
-                list.add(answer.get(i).num[j]);
+                if(answer.get(i).num[j]==0)
+                {
+                    list[k]=j;
+                    k++;
+                    break;
+                }
             }
-
-
         }
         return list;
     }
