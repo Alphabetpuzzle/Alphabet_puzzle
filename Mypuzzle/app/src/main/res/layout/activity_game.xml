@@ -16,8 +16,9 @@
             android:id="@+id/pt_iv"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:scaleType="centerInside"
             android:layout_gravity="center"
-
+            android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
@@ -35,9 +36,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
-                android:text="时间：0"
+                android:text="时间:0"
                 android:textColor="#FF0000"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/pt_tv_step"
@@ -45,9 +46,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:text="步数：0"
+                android:text="步数:0"
                 android:textColor="#FF0000"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -63,6 +64,8 @@
             android:id="@+id/pt_ib_00x00"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
             android:onClick="onClick"
             android:padding="0dp"
             android:src="@mipmap/img0" />
@@ -71,6 +74,8 @@
             android:id="@+id/pt_ib_00x01"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
             android:onClick="onClick"
             android:padding="0dp"
             android:src="@mipmap/img1" />
@@ -79,6 +84,8 @@
             android:id="@+id/pt_ib_00x02"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
             android:onClick="onClick"
             android:padding="0dp"
             android:src="@mipmap/img2" />
@@ -95,6 +102,8 @@
             android:id="@+id/pt_ib_01x00"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
             android:onClick="onClick"
             android:padding="0dp"
             android:src="@mipmap/img3" />
@@ -103,6 +112,8 @@
             android:id="@+id/pt_ib_01x01"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
             android:onClick="onClick"
             android:padding="0dp"
             android:src="@mipmap/img4" />
@@ -111,6 +122,8 @@
             android:id="@+id/pt_ib_01x02"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
             android:onClick="onClick"
             android:padding="0dp"
             android:src="@mipmap/img5" />
@@ -127,6 +140,8 @@
             android:id="@+id/pt_ib_02x00"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
             android:onClick="onClick"
             android:padding="0dp"
             android:src="@mipmap/img6" />
@@ -135,14 +150,18 @@
             android:id="@+id/pt_ib_02x01"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
             android:onClick="onClick"
             android:padding="0dp"
-            android:src="@mipmap/img7" />
+            android:src="@mipmap/img7"/>
 
         <ImageButton
             android:id="@+id/pt_ib_02x02"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
             android:onClick="onClick"
             android:padding="0dp"
             android:src="@mipmap/img8"
@@ -171,7 +190,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
-            android:onClick="restart"
+            android:onClick="gameai"
             android:text="AI演示"
             android:visibility="visible" />
     </androidx.appcompat.widget.LinearLayoutCompat>

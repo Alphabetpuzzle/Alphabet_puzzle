@@ -4,6 +4,7 @@ package com.example.mypuzzle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -43,7 +44,7 @@ public class Game extends AppCompatActivity {
     Button restartBtn,startBtn;
     TextView timeTv;
     TextView stepTv;
-    DecimalFormat df = new DecimalFormat("#.00");
+    DecimalFormat df = new DecimalFormat("#.0");
 
     //    每行的图片个数
     private int imageX = 3;
@@ -71,9 +72,9 @@ public class Game extends AppCompatActivity {
         public void handleMessage(Message msg) {
             if (msg.what==1) {
                 time++;
-                timeTv.setText("时间: "+df.format((double)time/100)+" 秒");
+                timeTv.setText("时间: "+df.format((double)time/10)+" 秒");
                 stepTv.setText("步数: "+scount+"步");
-                handler.sendEmptyMessageDelayed(1,10);
+                handler.sendEmptyMessageDelayed(1,100);
             }
         }
     };
@@ -88,15 +89,15 @@ public class Game extends AppCompatActivity {
         initView();
 //        打乱碎片的函数
         disruptRandom();
-        ib00.setClickable(false);
-        ib01.setClickable(false);
-        ib02.setClickable(false);
-        ib10.setClickable(false);
-        ib11.setClickable(false);
-        ib12.setClickable(false);
-        ib20.setClickable(false);
-        ib21.setClickable(false);
-        ib22.setClickable(false);
+        ib00.setClickable(true);
+        ib01.setClickable(true);
+        ib02.setClickable(true);
+        ib10.setClickable(true);
+        ib11.setClickable(true);
+        ib12.setClickable(true);
+        ib20.setClickable(true);
+        ib21.setClickable(true);
+        ib22.setClickable(true);
 
     }
 
@@ -258,7 +259,7 @@ public class Game extends AppCompatActivity {
             scount--;
             db=myDbHElper.getWritableDatabase();
             values = new ContentValues();
-            values.put("uname",String.valueOf(time/100));
+            values.put("uname",String.valueOf(time/10));
             values.put("stepcount",String.valueOf(scount));
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
@@ -268,7 +269,7 @@ public class Game extends AppCompatActivity {
             values.put("gamedate",simpleDateFormat.format(date));
 
             db.insert(mTableName,null,values);
-            builder.setMessage("恭喜，拼图成功！您用的时间为"+df.format(time/100)+"秒"+"步数为："+scount+"步")
+            builder.setMessage("恭喜，拼图成功！您用的时间为:"+df.format(time/10)+"秒"+"步数为:"+scount+"步")
                     .setPositiveButton("确认",null);
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -286,21 +287,21 @@ public class Game extends AppCompatActivity {
         time = 0;
         scount=0;
         flag1=0;
-        timeTv.setText("时间: "+time+" 秒");
-        stepTv.setText("步数："+scount+"步");
+        timeTv.setText("时间:"+time+" 秒");
+        stepTv.setText("步数:"+scount+"步");
     }
 
     private void restore() {
         //      拼图游戏重新开始，允许完成移动碎片按钮
-        ib00.setClickable(false);
-        ib01.setClickable(false);
-        ib02.setClickable(false);
-        ib10.setClickable(false);
-        ib11.setClickable(false);
-        ib12.setClickable(false);
-        ib20.setClickable(false);
-        ib21.setClickable(false);
-        ib22.setClickable(false);
+        ib00.setClickable(true);
+        ib01.setClickable(true);
+        ib02.setClickable(true);
+        ib10.setClickable(true);
+        ib11.setClickable(true);
+        ib12.setClickable(true);
+        ib20.setClickable(true);
+        ib21.setClickable(true);
+        ib22.setClickable(true);
 //        还原被点击的图片按钮变成初始化的模样
         ImageButton clickBtn = findViewById(blankImgid);
         clickBtn.setVisibility(VISIBLE);
@@ -312,15 +313,14 @@ public class Game extends AppCompatActivity {
     }
 
     public void start() {
-        handler.sendEmptyMessageDelayed(1, 1000);
-        ib00.setClickable(true);
-        ib01.setClickable(true);
-        ib02.setClickable(true);
-        ib10.setClickable(true);
-        ib11.setClickable(true);
-        ib12.setClickable(true);
-        ib20.setClickable(true);
-        ib21.setClickable(true);
-        ib22.setClickable(true);
+        handler.sendEmptyMessageDelayed(1, 100);
+
     }
+
+    public void gameai(View view) {
+        Intent intent = new Intent();
+        intent.setClass(Game.this,Gameai.class);
+        startActivity(intent);
+    }
+
 }
