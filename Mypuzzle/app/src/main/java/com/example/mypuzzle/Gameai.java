@@ -191,17 +191,13 @@ public class Gameai extends AppCompatActivity {
                         ett+=anslist.get(k);
                 }
                 tv_show.setText(ett);*/
-                for(int k=1;k<anslist[0]+1;k+=9)
+                for(int k=1;k<anslist[0]+1;k++)
                 {
-                     for(int add=0;add<9;add++)
-                     {
-                             if(anslist[(add+k)]==0)
-                             {
-                                     swap(add,now9);
-                                     now9=add;
-                                     break;
-                             }
-                     }
+                        swap(anslist[k],now9);
+                        now9=anslist[k];
+
+
+
                 }
 
         }
