@@ -45,7 +45,7 @@ public class Gameai extends AppCompatActivity {
 
 
         ImageButton ib00,ib01,ib02,ib10,ib11,ib12,ib20,ib21,ib22;
-        Button restartBtn,startBtn;
+        ImageButton restartBtn;
         TextView timeTv;
         TextView stepTv;
         TextView tv_show;
@@ -285,7 +285,7 @@ public class Gameai extends AppCompatActivity {
                                 handler.removeCallbacks(runnable);
                         }
                         isrun=1;
-                        restartBtn.setText("返回");
+                        restartBtn.setImageResource(R.mipmap.back);
                 }
               else
                 {

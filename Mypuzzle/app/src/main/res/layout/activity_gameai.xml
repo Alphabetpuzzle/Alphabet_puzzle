@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D9ECC3"
+    android:background="@mipmap/bgimg1"
     android:orientation="vertical"
     tools:context=".Game">
 
@@ -14,8 +15,8 @@
 
         <ImageView
             android:id="@+id/pt_iv"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:scaleType="centerInside"
             android:layout_gravity="center"
             android:layout_centerVertical="true"
@@ -37,7 +38,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
                 android:text="时间:0"
-                android:textColor="#FF0000"
+                android:textColor="#364ED5"
                 android:textSize="20sp" />
 
             <TextView
@@ -47,7 +48,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:text="步数:0"
-                android:textColor="#FF0000"
+                android:textColor="#364ED5"
                 android:textSize="20sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -62,8 +63,8 @@
 
         <ImageButton
             android:id="@+id/ib_00x00"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:scaleType="centerInside"
             android:layout_centerVertical="true"
             android:padding="0dp"
@@ -71,8 +72,8 @@
 
         <ImageButton
             android:id="@+id/ib_00x01"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:scaleType="centerInside"
             android:layout_centerVertical="true"
             android:padding="0dp"
@@ -80,8 +81,8 @@
 
         <ImageButton
             android:id="@+id/ib_00x02"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:scaleType="centerInside"
             android:layout_centerVertical="true"
             android:padding="0dp"
@@ -97,8 +98,8 @@
 
         <ImageButton
             android:id="@+id/ib_01x00"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:scaleType="centerInside"
             android:layout_centerVertical="true"
             android:padding="0dp"
@@ -106,8 +107,8 @@
 
         <ImageButton
             android:id="@+id/ib_01x01"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:scaleType="centerInside"
             android:layout_centerVertical="true"
             android:padding="0dp"
@@ -115,8 +116,8 @@
 
         <ImageButton
             android:id="@+id/ib_01x02"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:scaleType="centerInside"
             android:layout_centerVertical="true"
             android:padding="0dp"
@@ -132,8 +133,8 @@
 
         <ImageButton
             android:id="@+id/ib_02x00"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:scaleType="centerInside"
             android:layout_centerVertical="true"
             android:padding="0dp"
@@ -141,8 +142,8 @@
 
         <ImageButton
             android:id="@+id/ib_02x01"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:scaleType="centerInside"
             android:layout_centerVertical="true"
             android:padding="0dp"
@@ -150,8 +151,8 @@
 
         <ImageButton
             android:id="@+id/ib_02x02"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:scaleType="centerInside"
             android:layout_centerVertical="true"
             android:padding="0dp"
@@ -160,21 +161,24 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="133dp"
+        android:layout_height="62dp"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_restart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:onClick="restart"
-            android:text="演示"
-            android:visibility="visible" />
+            android:padding="0dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@mipmap/showai" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 
 

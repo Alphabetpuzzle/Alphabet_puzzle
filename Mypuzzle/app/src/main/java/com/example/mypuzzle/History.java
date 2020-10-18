@@ -88,7 +88,7 @@ public class History extends AppCompatActivity implements View.OnClickListener {
                 String gnum=String.valueOf(temp);
                 String gtime = "时间："+ cousor.getString(1)+"秒";
                 String gstep = "步数："+cousor.getString(2)+"步";
-                String gdate = "日期："+cousor.getString(3);
+                String gdate = cousor.getString(3);
                 Gamedatas gametemp = new Gamedatas(gnum, gtime, gstep,gdate);
                 personList.add(gametemp);
             }

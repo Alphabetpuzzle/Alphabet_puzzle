@@ -40,8 +40,8 @@ public class Game extends AppCompatActivity {
     int flag1=0;//1表示已经开始游戏
 
 
-    ImageButton ib00,ib01,ib02,ib10,ib11,ib12,ib20,ib21,ib22;
-    Button restartBtn,startBtn;
+    ImageButton ib00,ib01,ib02,ib10,ib11,ib12,ib20,ib21,ib22,ibnb;
+    ImageButton restart;
     TextView timeTv;
     TextView stepTv;
     DecimalFormat df = new DecimalFormat("#.0");
@@ -152,7 +152,7 @@ public class Game extends AppCompatActivity {
         ib21 = findViewById(R.id.pt_ib_02x01);
         ib22 = findViewById(R.id.pt_ib_02x02);
         timeTv = findViewById(R.id.pt_tv_time);
-        restartBtn = findViewById(R.id.pt_btn_restart);
+        restart = findViewById(R.id.restart);
        stepTv=findViewById(R.id.pt_tv_step);
     }
 

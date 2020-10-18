@@ -5,14 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@mipmap/bgimg1"
     tools:context=".MainActivity"
     android:padding="0dp">
     <TextView
         android:id="@+id/tv_tittle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="历史记录"
-        android:textSize="20sp" />
+        android:textSize="30sp" />
 
 
     <androidx.recyclerview.widget.RecyclerView
