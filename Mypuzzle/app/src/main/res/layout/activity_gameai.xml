@@ -31,7 +31,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/pt_tv_time"
+                android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -41,7 +41,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/pt_tv_step"
+                android:id="@+id/tv_step"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -54,14 +54,14 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <LinearLayout
-        android:id="@+id/pt_line1"
+        android:id="@+id/spt_line1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/pt_ib_00x00"
+            android:id="@+id/ib_00x00"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerInside"
@@ -70,7 +70,7 @@
             android:src="@mipmap/img0" />
 
         <ImageButton
-            android:id="@+id/pt_ib_00x01"
+            android:id="@+id/ib_00x01"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerInside"
@@ -79,7 +79,7 @@
             android:src="@mipmap/img1" />
 
         <ImageButton
-            android:id="@+id/pt_ib_00x02"
+            android:id="@+id/ib_00x02"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerInside"
@@ -89,14 +89,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/pt_line2"
+        android:id="@+id/spt_line2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/pt_ib_01x00"
+            android:id="@+id/ib_01x00"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerInside"
@@ -105,7 +105,7 @@
             android:src="@mipmap/img3" />
 
         <ImageButton
-            android:id="@+id/pt_ib_01x01"
+            android:id="@+id/ib_01x01"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerInside"
@@ -114,7 +114,7 @@
             android:src="@mipmap/img4" />
 
         <ImageButton
-            android:id="@+id/pt_ib_01x02"
+            android:id="@+id/ib_01x02"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerInside"
@@ -124,14 +124,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/pt_line3"
+        android:id="@+id/spt_line3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/pt_ib_02x00"
+            android:id="@+id/ib_02x00"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerInside"
@@ -140,7 +140,7 @@
             android:src="@mipmap/img6" />
 
         <ImageButton
-            android:id="@+id/pt_ib_02x01"
+            android:id="@+id/ib_02x01"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerInside"
@@ -149,7 +149,7 @@
             android:src="@mipmap/img7"/>
 
         <ImageButton
-            android:id="@+id/pt_ib_02x02"
+            android:id="@+id/ib_02x02"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerInside"
@@ -167,7 +167,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/pt_btn_restart"
+            android:id="@+id/btn_restart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -176,11 +176,6 @@
             android:visibility="visible" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <TextView
-        android:id="@+id/tv_show"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="序列：" />
 
 
 </LinearLayout>
