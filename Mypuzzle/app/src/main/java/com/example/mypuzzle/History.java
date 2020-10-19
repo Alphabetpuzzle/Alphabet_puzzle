@@ -47,8 +47,6 @@ public class History extends AppCompatActivity implements View.OnClickListener {
 
     private void initView() {
 
-        tv_tittle = findViewById(R.id.tv_tittle);
-
         myDbHElper = new MyDbHElper(this);
 
 
