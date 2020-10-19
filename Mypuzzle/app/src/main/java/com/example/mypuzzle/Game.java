@@ -257,19 +257,18 @@ public class Game extends AppCompatActivity {
 //            弹出提示用户成功的对话框
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             scount--;
+
             db=myDbHElper.getWritableDatabase();
             values = new ContentValues();
             values.put("uname",String.valueOf(time/10));
             values.put("stepcount",String.valueOf(scount));
-
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
             //获取当前时间
             Date date = new Date(System.currentTimeMillis());
-
             values.put("gamedate",simpleDateFormat.format(date));
-
             db.insert(mTableName,null,values);
-            builder.setMessage("恭喜，拼图成功！您用的时间为:"+df.format(time/10)+"秒"+"步数为:"+scount+"步")
+
+            builder.setMessage("恭喜，拼图成功！您用的时间为:"+df.format((double)time/10)+"秒"+"步数为:"+scount+"步")
                     .setPositiveButton("确认",null);
             AlertDialog dialog = builder.create();
             dialog.show();

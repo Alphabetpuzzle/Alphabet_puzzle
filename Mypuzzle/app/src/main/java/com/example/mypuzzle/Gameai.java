@@ -244,7 +244,7 @@ public class Gameai extends AppCompatActivity {
 //            弹出提示用户成功的对话框
                         scount--;
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setMessage("AI拼图成功！用的时间为:"+df.format(time/10)+"秒"+"步数为:"+scount+"步")
+                        builder.setMessage("AI拼图成功！用的时间为:"+df.format((double)time/10)+"秒"+"步数为:"+scount+"步")
                                 .setPositiveButton("确认",null);
                         AlertDialog dialog = builder.create();
                         dialog.show();
